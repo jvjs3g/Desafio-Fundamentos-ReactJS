@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 import income from '../../assets/income.svg';
@@ -9,6 +8,7 @@ import api from '../../services/api';
 
 import Header from '../../components/Header';
 
+import formatDate from '../../utils/formatDate';
 import formatValue from '../../utils/formatValue';
 
 import { Container, CardContainer, Card, TableContainer } from './styles';
@@ -54,10 +54,12 @@ const Dashboard: React.FC = () => {
               ? `- ${currencyFormatValue}`
               : currencyFormatValue;
 
+          const formattedDate = formatDate(created_at);
 
           return {
             ...transaction,
             formattedValue,
+            formattedDate,
           };
         },
       );
@@ -117,18 +119,15 @@ const Dashboard: React.FC = () => {
                 <th>Data</th>
               </tr>
             </thead>
-
             <tbody>
-              {transactions.map((transaction) => (
-                <tr key={transaction.id}>
-                  <td className="title">{transaction.title}</td>
-                  <td className={transaction.type}>
-                    {transaction.formattedValue}
-                  </td>
-                  <td>{transaction.category}</td>
-
-                </tr>
-              ))}
+              {transactions.map((transaction) =>(
+                   <tr key={transaction.id}>
+                   <td className="title">{transaction.title}</td>
+                  <td className={transaction.type}>{transaction.formattedValue}</td>
+                  <td>{transaction.category.title}</td>
+                   <td>{transaction.formattedDate}</td>
+                 </tr>
+               ))}
             </tbody>
           </table>
         </TableContainer>
