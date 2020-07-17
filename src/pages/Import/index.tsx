@@ -56,7 +56,7 @@ const Import: React.FC = () => {
       return [...acc, { file, name, readableSize }];
     }, [] as FileProps[]);
 
-    setUploadedFiles([...uploadedFiles, newFiles]);
+    setUploadedFiles([...uploadedFiles, ...newFiles]);
   }
 
   return (
